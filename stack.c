@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 14:41:37 by abiru             #+#    #+#             */
+/*   Updated: 2023/01/06 20:53:29 by abiru            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_list	*ft_lstnew(int content)
@@ -9,41 +21,64 @@ t_list	*ft_lstnew(int content)
 		return (NULL);
 	new_node->content = content;
 	new_node->next = NULL;
-	new_node->prev = NULL;
 	return (new_node);
 }
 
-// t_node	*create_node()
-// {
-// 	t_node *list = (t_node *)malloc(sizeof(t_node));
-// 	if (!list)
-// 		return (0);
-// }
-
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new -> next = *lst;
+	new->next = *lst;
 	*lst = new;
 	return ;
 }
 
-void	push(t_node *list, t_node *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	
-	if (!list)
+	t_list	*temp;
+
+	temp = *lst;
+	if (!temp)
+	{
+		*lst = new;
 		return ;
-	while (list->next)
-		list = list->next;
-	list->next = new;
-	new->next = NULL;
+	}
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
+	return ;
 }
 
-void pop(t_node *list)
+void	ft_lstdelone(t_list *lst)
 {
-	if (!list)
+	if (!lst)
 		return ;
-	while (list->next->next)
-		list = list->next;
-	free(list->next);
-	list->next = NULL;
+	lst->content = 0;
+	free(lst);
+}
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*temp;
+	t_list	*current;
+
+	if (!lst)
+		return ;
+	temp = *lst;
+	current = *lst;
+	while (current != NULL)
+	{
+		current = current->next;
+		ft_lstdelone(temp);
+		temp = current;
+	}
+	*lst = NULL;
+	return ;
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst -> next != NULL)
+		lst = lst -> next;
+	return (lst);
 }
