@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/06 19:05:27 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/07 19:43:25 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,97 @@ void	check_nums(t_list **head, char **av, int ac)
 		error_msg("ERROR\n");
 }
 
-void sort(t_list **stack_a, t_list **stack_b)
+void print_list(t_list **head)
+{
+	t_list *tmp = *head;
+	while (tmp)
+	{
+		printf("%d->", tmp->content);
+		tmp = tmp->next;
+	}
+	printf("NULL\n");
+}
+
+void	sort_three(t_list **head)
+{
+	t_list	*tmp;
+
+	tmp = *head;
+	if (tmp->content > tmp->next->content)
+	{
+		write(1, "sa\n", 3);
+		swap(head);
+	}
+	tmp = tmp->next;
+	if (tmp->content > tmp->next->content)
+		reverse_rotate(head);
+	tmp = *head;
+	if (tmp->content > tmp->next->content)
+	{
+		write(1, "sa\n", 3);
+		swap(head);
+	}
+}
+
+void	sort_five(t_list **stack_a, t_list **stack_b, int size)
+{
+	push(stack_a, stack_b);
+	write(1, "pb\n", 3);
+	if (size == 5)
+	{
+		write(1, "pb\n", 3);
+		push(stack_a, stack_b);
+	}
+	sort_three(stack_a);
+	push(stack_b, stack_a);
+	write(1, "pa\n", 3);
+	if (size == 4)
+	{
+		if ((*stack_a)->content > (*stack_a)->next->content
+			&& (*stack_a)->content > (*stack_a)->next->next->content
+			&& (*stack_a)->content > (*stack_a)->next->next->next->content)
+			rotate(stack_a);
+		else if ((*stack_a)->content > (*stack_a)->next->content
+			&& (*stack_a)->content > (*stack_a)->next->next->content)
+		{
+			reverse_rotate(stack_a);
+			swap(stack_a);
+			write(1, "sa\n", 3);
+			rotate(stack_a);
+			rotate(stack_a);
+		}
+		else if ((*stack_a)->content > (*stack_a)->next->content)
+		{
+			swap(stack_a);
+			write(1, "sa\n", 3);
+		}
+		if (is_sorted(stack_a))
+		{
+			ft_lstclear(stack_a);
+			exit(0);
+		}
+	}
+}
+
+void	sort(t_list **stack_a, t_list **stack_b)
 {
 	(void)stack_a;
 	(void)stack_b;
+	if (is_sorted(stack_a))
+	{
+		ft_lstclear(stack_a);
+		exit(0);
+	}
+	if (ft_lstsize(*stack_a) == 2)
+	{
+		write(1, "sa\n", 3);
+		swap(stack_a);
+		exit(1);
+	}
+	if (ft_lstsize(*stack_a) == 3)
+		sort_three(stack_a);
+	else if (ft_lstsize(*stack_a) <= 5)
+		sort_five(stack_a, stack_b, ft_lstsize(*stack_a));
 	return ;
 }
 
@@ -172,7 +259,11 @@ int	main(int ac, char **av)
 	if (check_validity(av, ac) == 2)
 		error_msg("ERROR\n");
 	check_nums(&stack_a, av, ac);
-	printf("OK\n");
+	if (ft_lstsize(stack_a) == 1)
+	{
+		ft_lstclear(&stack_a);
+		exit(0);
+	}
 	sort(&stack_a, &stack_b);
 	ft_lstclear(&stack_a);
 }

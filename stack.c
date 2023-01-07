@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:41:37 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/06 20:53:29 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/07 16:20:35 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,17 @@ t_list	*ft_lstlast(t_list *lst)
 	while (lst -> next != NULL)
 		lst = lst -> next;
 	return (lst);
+}
+
+int	ft_lstsize(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst -> next;
+		i++;
+	}
+	return (i);
 }

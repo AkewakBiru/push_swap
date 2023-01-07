@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:48:39 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/06 21:20:09 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/07 19:39:10 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	rotate(t_list **head)
 	ft_lstdelone(tmp);
 	tmp = ft_lstnew((*head)->content);
 	ft_lstadd_back(head, tmp);
+	write(1, "ra\n", 3);
 }
 
 void	reverse_rotate(t_list **head)
@@ -61,6 +62,11 @@ void	reverse_rotate(t_list **head)
 		return ;
 	tmp = ft_lstlast(*head);
 	tmp2 = ft_lstnew(tmp->content);
-	ft_lstdelone(tmp);
+	tmp = *head;
+	while (tmp->next->next)
+		tmp = tmp->next;
+	ft_lstdelone(tmp->next);
+	tmp->next = NULL;
 	ft_lstadd_front(head, tmp2);
+	write(1, "rra\n", 4);
 }
