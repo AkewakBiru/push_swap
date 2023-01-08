@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:41:37 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/07 16:20:35 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/08 16:41:24 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_list	*ft_lstnew(int content)
 	if (!new_node)
 		return (NULL);
 	new_node->content = content;
+	new_node->cost_a = 0;
+	new_node->cost_b = 0;
+	new_node->index = 0;
 	new_node->next = NULL;
 	return (new_node);
 }

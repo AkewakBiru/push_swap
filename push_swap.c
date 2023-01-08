@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/07 19:43:25 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/08 17:18:35 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,44 +185,74 @@ void	sort_three(t_list **head)
 	}
 }
 
+void	cost_b(t_list *tmp, t_list **stack_b)
+{
+	if (tmp->index == 0)
+		tmp->cost_b = 0;
+	else if (tmp->index > ft_lstsize(stack_b) / 2)
+		tmp->cost_b = ft_lstsize(stack_b) - tmp->index;
+	else
+		tmp->cost_b = tmp->index;
+}
+
+void	cost_a(t_list *tmp, t_list **stack_a, t_list **stack_b)
+{
+	
+}
+
+void	calc_cost(t_list **stack_b, t_list **stack_a)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = *stack_b;
+	i = 0;
+	while (tmp)
+	{
+		tmp->index = i;
+		cost_a(tmp, stack_a, stack_b);
+		cost_b(tmp, stack_b);
+		tmp = tmp->next;
+	}
+}
+
 void	sort_five(t_list **stack_a, t_list **stack_b, int size)
 {
-	push(stack_a, stack_b);
-	write(1, "pb\n", 3);
-	if (size == 5)
+	while (ft_lstsize(stack_a) > 3)
 	{
-		write(1, "pb\n", 3);
 		push(stack_a, stack_b);
+		write(1, "pb\n", 3);
 	}
 	sort_three(stack_a);
+	calc_cost(stack_b, stack_a);
 	push(stack_b, stack_a);
-	write(1, "pa\n", 3);
-	if (size == 4)
-	{
-		if ((*stack_a)->content > (*stack_a)->next->content
-			&& (*stack_a)->content > (*stack_a)->next->next->content
-			&& (*stack_a)->content > (*stack_a)->next->next->next->content)
-			rotate(stack_a);
-		else if ((*stack_a)->content > (*stack_a)->next->content
-			&& (*stack_a)->content > (*stack_a)->next->next->content)
-		{
-			reverse_rotate(stack_a);
-			swap(stack_a);
-			write(1, "sa\n", 3);
-			rotate(stack_a);
-			rotate(stack_a);
-		}
-		else if ((*stack_a)->content > (*stack_a)->next->content)
-		{
-			swap(stack_a);
-			write(1, "sa\n", 3);
-		}
-		if (is_sorted(stack_a))
-		{
-			ft_lstclear(stack_a);
-			exit(0);
-		}
-	}
+	// write(1, "pa\n", 3);
+	// if (size == 4)
+	// {
+	// 	if ((*stack_a)->content > (*stack_a)->next->content
+	// 		&& (*stack_a)->content > (*stack_a)->next->next->content
+	// 		&& (*stack_a)->content > (*stack_a)->next->next->next->content)
+	// 		rotate(stack_a);
+	// 	else if ((*stack_a)->content > (*stack_a)->next->content
+	// 		&& (*stack_a)->content > (*stack_a)->next->next->content)
+	// 	{
+	// 		reverse_rotate(stack_a);
+	// 		swap(stack_a);
+	// 		write(1, "sa\n", 3);
+	// 		rotate(stack_a);
+	// 		rotate(stack_a);
+	// 	}
+	// 	else if ((*stack_a)->content > (*stack_a)->next->content)
+	// 	{
+	// 		swap(stack_a);
+	// 		write(1, "sa\n", 3);
+	// 	}
+	// 	if (is_sorted(stack_a))
+	// 	{
+	// 		ft_lstclear(stack_a);
+	// 		exit(0);
+	// 	}
+	// }
 }
 
 void	sort(t_list **stack_a, t_list **stack_b)
@@ -242,7 +272,7 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	}
 	if (ft_lstsize(*stack_a) == 3)
 		sort_three(stack_a);
-	else if (ft_lstsize(*stack_a) <= 5)
+	else
 		sort_five(stack_a, stack_b, ft_lstsize(*stack_a));
 	return ;
 }

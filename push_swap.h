@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:07:30 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/07 18:20:25 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/08 16:37:54 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 typedef struct s_list
 {
 	int				content;
+	int				cost_a;
+	int				cost_b;
+	int				index;
 	struct s_list	*next;
 }	t_list;
 
