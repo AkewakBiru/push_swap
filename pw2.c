@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   pw2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/11 13:31:42 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/12 14:36:24 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,128 +185,67 @@ void	sort_three(t_list **head)
 	}
 }
 
-// void	mark_biggest(t_list **stack_a, int val)
-// {
-// 	t_list	*tmp;
-
-// 	tmp = *stack_a;
-// 	while (tmp)
-// 	{
-// 		if (tmp->content == val)
-// 			tmp->flag = 4;
-// 		else if (tmp->flag != 4)
-// 			tmp->flag = 0;
-// 		tmp = tmp->next;
-// 	}
-// }
-
-/*
-stack b has to be sorted in a reverse order
-1, 5, 2, 4, 3 -> pb, pb - 2,4,3 & 5,1 - 2,3,4(rra, sa) & 5,1 - rrb, pa - 1,2,3,4 & 5, pa - 5,1,2,3,4, ra - 1,2,3,4,5
-5,4,3,2,1 -> pb, pb - 3,2,1 & 4,5 -> 1,2,3 (sa, rra) & 4,5 - rrb, pa - 5,1,2,3, pa - 4,5,1,2,3 - ra,ra - 1,2,3,4,5
-
-1,2,5,3,4 -> pb, pb - 5,3,4 & 2,1 -> 3,4,5 (ra) -> pa, pa - 1,2,3,4,5
-1,3,5,2,4 -> pb, pb - 5, 2, 4 & 3,1 -> 2,4,5(ra) -> 1,3,2,4,5 (pa, pa) -> ra - 3,2,4,5,1, sa - 2,3,4,5,1, rra 1,2,3,4,5
-rra, pb 1,3,5,2 ra,ra, pb 2,1,3, sa 1,2,3 pa, pa, ra,ra
-*/
-
-// void	assign_indices(t_list **stack)
-// {
-// 	t_list	*tmp;
-// 	int		i;
-
-// 	tmp = *stack;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		if (i > ft_lstsize(*stack) / 2)
-// 			tmp->index = -(ft_lstsize(*stack) - i);
-// 		else
-// 			tmp->index = i;
-// 		tmp = tmp->next;
-// 		i++;
-// 	}
-// }
-
-int	find_smallest(t_list **stack)
+int find_index(int val, int *arr, int size)
 {
-	t_list	*tmp;
-	int		smallest;
+	int	i;
 
-	tmp = *stack;
-	smallest = tmp->content;
-	while (tmp)
+	i = -1;
+	while (++i < size)
 	{
-		if (tmp->content < smallest)
-			smallest = tmp->content;
-		tmp = tmp->next;
+		if (val == arr[i])
+			return (i);
 	}
-	return (smallest);
+	return (0);
 }
 
-/*
-5,3,2,4,6,-1 -> 3,2,-1 (stack b) -> stack a -> 4,6,5 rra, sa 4,5,6
-	when pushing to stack b, push the smallest item first and continue by size.
-*/
+void sort_big(t_list **stack_a, t_list **stack_b)
+{
+	int		i;
+	t_list	*tmp;
+	int		arr[ft_lstsize(*stack_a)];
+	int		max_dig;
+	int		bit_num;
+	int		j;
 
-// void	sort_five(t_list **stack_a, t_list **stack_b)
-// {
-// 	int	i;
-// 	int smallest;
-// 	t_list	*tmp;
-
-// 	i = 0;
-// 	tmp = *stack_a;
-// 	assign_indices(stack_a);
-// 	tmp = *stack_a;
-// 	while (tmp && ft_lstsize(*stack_a) > 3)
-// 	{
-// 		i = 0;
-// 		smallest = find_smallest(stack_a);
-// 		while (tmp && tmp->content != smallest)
-// 			tmp = tmp->next;
-// 		if (tmp->index < 0)
-// 		{
-// 			while (i > tmp->index)
-// 			{
-// 				stack_a = reverse_rotate(stack_a);
-// 				i--;
-// 			}
-// 		}
-// 		else
-// 		{
-// 			while (tmp->index > i)
-// 			{
-// 				stack_a = rotate(stack_a);
-// 				i++;
-// 			}
-// 		}
-// 		push(stack_a, stack_b);
-// 		assign_indices(stack_a);
-// 		tmp = *stack_a;
-// 		write(1, "pb\n", 3);
-// 	}
-// 	sort_three(stack_a);
-// 	while (*stack_b)
-// 	{
-// 		push(stack_b, stack_a);
-// 		write(1, "pa\n", 3);
-// 	}
-// }
-
-/*
-sort the numbers outbound,
-divide into chunks,
-push numbers in the lower half of the chunk to stack b.
-
-2,4,-1,5,-3,3,7,1,9,10 -> sorted = -3,-1,1,2,3,4,5,7,9,10
-
-*/
+	tmp = *stack_a;
+	(void)stack_b;
+	sort_nums(stack_a, ft_lstsize(*stack_a), arr);
+	while (tmp)
+	{
+		tmp->index = find_index(tmp->content, arr, ft_lstsize(*stack_a));
+		tmp = tmp->next;
+	}
+	max_dig = ft_lstsize(*stack_a) - 1;
+	bit_num = 0;
+	while ((max_dig >> bit_num) != 0)
+		bit_num++;
+	i = 0;
+	while (i < bit_num)
+	{
+		j = 0;
+		tmp = *stack_a;
+		while (j < max_dig + 1)
+		{
+			if (((*stack_a)->index >> i & 1) == 0)
+			{
+				push(stack_a, stack_b);
+				write(1, "pb\n", 3);
+			}
+			else
+				stack_a = rotate(stack_a);
+			j++;
+		}
+		while (*stack_b)
+		{
+			push(stack_b, stack_a);
+			write(1, "pa\n", 3);
+		}
+		i++;
+	}
+}
 
 void	sort(t_list **stack_a, t_list **stack_b)
 {
-	(void)stack_a;
-	(void)stack_b;
 	if (is_sorted(stack_a))
 	{
 		ft_lstclear(stack_a);
@@ -321,8 +260,7 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	if (ft_lstsize(*stack_a) == 3)
 		sort_three(stack_a);
 	else
-		big_sort(stack_a, stack_b);
-	// print_list(stack_a);
+		sort_big(stack_a, stack_b);
 	return ;
 }
 

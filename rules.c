@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:48:39 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/07 19:39:10 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/10 19:33:13 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,36 @@ void	push(t_list **head, t_list **head2)
 		return ;
 	tmp = *head;
 	top = ft_lstnew(tmp->content);
+	top->index = tmp->index;
 	*head = (*head)->next;
 	ft_lstdelone(tmp);
 	ft_lstadd_front(head2, top);
 }
 
-void	rotate(t_list **head)
-{
-	t_list	*tmp;
-
-	if (!head || !(*head))
-		return ;
-	tmp = *head;
-	*head = (*head)->next;
-	ft_lstdelone(tmp);
-	tmp = ft_lstnew((*head)->content);
-	ft_lstadd_back(head, tmp);
-	write(1, "ra\n", 3);
-}
-
-void	reverse_rotate(t_list **head)
+t_list	**rotate(t_list **head)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
 
 	if (!head || !(*head))
-		return ;
+		return (NULL);
+	tmp = *head;
+	*head = (*head)->next;
+	tmp2 = ft_lstnew(tmp->content);
+	tmp2->index = tmp->index;
+	ft_lstdelone(tmp);
+	ft_lstadd_back(head, tmp2);
+	write(1, "ra\n", 3);
+	return (head);
+}
+
+t_list	**reverse_rotate(t_list **head)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+
+	if (!head || !(*head))
+		return (NULL);
 	tmp = ft_lstlast(*head);
 	tmp2 = ft_lstnew(tmp->content);
 	tmp = *head;
@@ -69,4 +73,5 @@ void	reverse_rotate(t_list **head)
 	tmp->next = NULL;
 	ft_lstadd_front(head, tmp2);
 	write(1, "rra\n", 4);
+	return (head);
 }
