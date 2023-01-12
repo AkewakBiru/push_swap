@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:07:30 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/11 12:51:12 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/12 19:54:51 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_list	**rotate(t_list **head);
 t_list	**reverse_rotate(t_list **head);
 int		is_reverse_sorted(t_list **head);
 int		sort_nums(t_list	**head, int size, int *arr);
-void big_sort(t_list **stack_a, t_list **stack_b);
+void	big_sort(t_list **stack_a, t_list **stack_b);
 void	sort_three(t_list **head);
-void print_list(t_list **head);
+void	print_list(t_list **head);
 #endif

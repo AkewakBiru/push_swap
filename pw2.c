@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/12 14:36:24 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/12 19:49:14 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ void sort_big(t_list **stack_a, t_list **stack_b)
 	int		j;
 
 	tmp = *stack_a;
-	(void)stack_b;
 	sort_nums(stack_a, ft_lstsize(*stack_a), arr);
 	while (tmp)
 	{
@@ -259,6 +258,8 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	}
 	if (ft_lstsize(*stack_a) == 3)
 		sort_three(stack_a);
+	else if (ft_lstsize(*stack_a) < 50)
+		big_sort(stack_a, stack_b);
 	else
 		sort_big(stack_a, stack_b);
 	return ;

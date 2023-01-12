@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/11 13:31:42 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/12 17:28:16 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	check_nums(t_list **head, char **av, int ac)
 
 void print_list(t_list **head)
 {
-	t_list *tmp = *head;
+	t_list	*tmp = *head;
 	while (tmp)
 	{
 		printf("%d->", tmp->content);
