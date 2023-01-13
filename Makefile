@@ -6,13 +6,13 @@
 #    By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 12:44:28 by abiru             #+#    #+#              #
-#    Updated: 2023/01/12 17:29:52 by abiru            ###   ########.fr        #
+#    Updated: 2023/01/13 11:08:44 by abiru            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = ft_atoi.c ft_split.c push_swap.c stack.c ps_utils.c rules.c big_sort.c
+SRCS = ft_atoi.c ft_split.c pw2.c stack.c ps_utils.c rules.c sort_medium.c check_arg.c free.c ft_strlen.c sort_med_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,56 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_utils.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/07 13:12:27 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/12 21:20:16 by abiru            ###   ########.fr       */
+/*   Created: 2023/01/12 21:04:27 by abiru             #+#    #+#             */
+/*   Updated: 2023/01/12 21:21:23 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_list **head)
+void	free_mem(t_list **head)
 {
 	t_list	*tmp;
+	t_list	*tmp2;
 
-	tmp = *head;
-	while (tmp->next)
+	tmp = (*head)->next;
+	tmp2 = (*head)->next;
+	while (tmp != *head)
 	{
-		if (tmp->content > tmp->next->content)
-			return (0);
 		tmp = tmp->next;
+		free(tmp2);
+		tmp2 = tmp;
 	}
-	return (1);
+	free(tmp);
+	exit(1);
 }
 
-int	sort_nums(t_list	**head, int size, int *arr)
+void	free_arr(char **lst)
 {
-	int		i;
-	int		tmp;
-	t_list	*ll;
+	int	i;
 
 	i = 0;
-	ll = *head;
-	while (ll)
+	while (lst[i])
 	{
-		arr[i++] = ll->content;
-		ll = ll->next;
+		free(lst[i]);
+		i++;
 	}
-	i = 0;
-	while (i < size - 1)
-	{
-		if (arr[i] > arr[i + 1])
-		{
-			tmp = arr[i];
-			arr[i] = arr[i + 1];
-			arr[i + 1] = tmp;
-			i = 0;
-		}
-		else
-			i++;
-	}
-	return (arr[size / 2]);
+}
+
+void	error_msg(char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+	exit(1);
 }

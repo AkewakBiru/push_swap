@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   big_sort.c                                         :+:      :+:    :+:   */
+/*   sort_medium.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:41:27 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/12 19:43:30 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 12:59:17 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,57 +88,15 @@ void	push_b(t_list **stack_a, t_list **stack_b)
 	while (ft_lstsize(*stack_a) > 3)
 	{
 		if ((*stack_a)->flag != 4)
-		{
-			push(stack_a, stack_b);
-			write(1, "pb\n", 3);
-		}
+			push(stack_a, stack_b, 0);
 		else
 			stack_a = rotate(stack_a);
 	}
 	sort_three(stack_a);
-	push(stack_b, stack_a);
-	write(1, "pa\n", 3);
+	push(stack_b, stack_a, 1);
 }
 
-void	put_back(int i, t_list **stack_a, t_list **stack_b)
-{
-	while (i != 0)
-	{
-		if (i < 0)
-		{
-			stack_a = rotate(stack_a);
-			i++;
-			if (i == 0)
-				stack_a = rotate(stack_a);
-		}
-		else
-		{
-			stack_a = reverse_rotate(stack_a);
-			i--;
-		}
-	}
-}
-
-void	arrange_b(int i, t_list **stack_a, t_list **stack_b)
-{
-	while ((*stack_b)->cost_a)
-	{
-		if ((*stack_b)->cost_a < 0)
-		{
-			stack_a = reverse_rotate(stack_a);
-			(*stack_b)->cost_a++;
-			i--;
-		}
-		else
-		{
-			stack_a = rotate(stack_a);
-			(*stack_b)->cost_a--;
-			i++;
-		}
-	}
-}
-
-void	big_sort(t_list **stack_a, t_list **stack_b)
+void	sort_medium(t_list **stack_a, t_list **stack_b)
 {
 	int		big;
 	int		i;
@@ -153,8 +111,7 @@ void	big_sort(t_list **stack_a, t_list **stack_b)
 		assign_indices(stack_b);
 		calc_cost(stack_a, stack_b);
 		arrange_b(i, stack_a, stack_b);
-		push(stack_b, stack_a);
-		write(1, "pa\n", 3);
-		put_back(i, stack_a, stack_b);
+		push(stack_b, stack_a, 1);
+		put_back(i, stack_a);
 	}
 }

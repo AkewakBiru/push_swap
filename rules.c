@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:48:39 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/10 19:33:13 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 12:55:37 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	swap(t_list **head)
 	tmp->next->content = val;
 }
 
-void	push(t_list **head, t_list **head2)
+void	push(t_list **head, t_list **head2, int flag)
 {
 	t_list	*top;
 	t_list	*tmp;
@@ -38,6 +38,10 @@ void	push(t_list **head, t_list **head2)
 	*head = (*head)->next;
 	ft_lstdelone(tmp);
 	ft_lstadd_front(head2, top);
+	if (flag == 0)
+		write(1, "pb\n", 3);
+	else
+		write(1, "pa\n", 3);
 }
 
 t_list	**rotate(t_list **head)
