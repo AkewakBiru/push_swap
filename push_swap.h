@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:07:30 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/13 12:56:41 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 19:27:24 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_list
 typedef struct s_ints
 {
 	int	*arr;
-	int bit_num;
-	int max_dig;
+	int	bit_num;
+	int	max_dig;
 }	t_ints;
 
 long	ft_atol(const char *str);
@@ -42,8 +42,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst);
 void	ft_lstclear(t_list **lst);
 t_list	*ft_lstlast(t_list *lst);
-int		is_sorted(t_list **head);
 int		ft_lstsize(t_list *lst);
+int		is_sorted(t_list **head);
 void	swap(t_list **head);
 void	push(t_list **head, t_list **head2, int flag);
 t_list	**rotate(t_list **head);
@@ -56,8 +56,7 @@ int		check_dup(t_list **head);
 void	check_nums(t_list **head, char **av, int ac);
 void	error_msg(char *msg);
 void	free_arr(char **lst);
-void	free_mem(t_list **head);
 size_t	ft_strlen(const char *s);
-void	arrange_b(int i, t_list **stack_a, t_list **stack_b);
+int		arrange_a(t_list **stack_a, t_list **stack_b);
 void	put_back(int i, t_list **stack_a);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pw2.c                                              :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:47:14 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/13 13:35:25 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 19:31:29 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,6 @@ void	sort_three(t_list **head)
 		swap(head);
 	}
 }
-
-// int	find_index(int val, int *arr, int size)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (++i < size)
-// 	{
-// 		if (val == arr[i])
-// 			return (i);
-// 	}
-// 	return (0);
-// }
 
 void	init_vars(t_list **stack_a, t_ints *t_int)
 {
@@ -79,7 +66,7 @@ void	sort_big(t_list **stack_a, t_list **stack_b)
 	t_ints	*t_int;
 	int		j;
 
-	t_int = (t_ints *)malloc(sizeof(t_int));
+	t_int = (t_ints *)malloc(sizeof(t_ints));
 	if (!t_int)
 		return ;
 	init_vars(stack_a, t_int);
@@ -112,9 +99,8 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	{
 		write(1, "sa\n", 3);
 		swap(stack_a);
-		exit(0);
 	}
-	if (ft_lstsize(*stack_a) == 3)
+	else if (ft_lstsize(*stack_a) == 3)
 		sort_three(stack_a);
 	else if (ft_lstsize(*stack_a) < 50)
 		sort_medium(stack_a, stack_b);
@@ -133,7 +119,7 @@ int	main(int ac, char **av)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (check_validity(av, ac) == 2)
-		error_msg("ERROR\n");
+		error_msg("Error\n");
 	check_nums(&stack_a, av, ac);
 	if (ft_lstsize(stack_a) == 1)
 	{
@@ -142,4 +128,5 @@ int	main(int ac, char **av)
 	}
 	sort(&stack_a, &stack_b);
 	ft_lstclear(&stack_a);
+	return (0);
 }

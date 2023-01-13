@@ -6,14 +6,17 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 21:17:38 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/12 21:18:30 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 17:34:11 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	put_back(int i, t_list **stack_a)
+void	put_back(int j, t_list **stack_a)
 {
+	int	i;
+
+	i = j;
 	while (i != 0)
 	{
 		if (i < 0)
@@ -31,8 +34,11 @@ void	put_back(int i, t_list **stack_a)
 	}
 }
 
-void	arrange_b(int i, t_list **stack_a, t_list **stack_b)
+int	arrange_a(t_list **stack_a, t_list **stack_b)
 {
+	int	i;
+
+	i = 0;
 	while ((*stack_b)->cost_a)
 	{
 		if ((*stack_b)->cost_a < 0)
@@ -48,4 +54,5 @@ void	arrange_b(int i, t_list **stack_a, t_list **stack_b)
 			i++;
 		}
 	}
+	return (i);
 }

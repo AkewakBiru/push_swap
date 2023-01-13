@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ll_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 21:05:20 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/13 14:53:22 by abiru            ###   ########.fr       */
+/*   Created: 2023/01/13 14:51:05 by abiru             #+#    #+#             */
+/*   Updated: 2023/01/13 14:53:33 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
+	if (!lst)
+		return (NULL);
+	while (lst -> next != NULL)
+		lst = lst -> next;
+	return (lst);
+}
+
+int	ft_lstsize(t_list *lst)
+{
+	int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (lst != NULL)
+	{
+		lst = lst -> next;
 		i++;
+	}
 	return (i);
 }

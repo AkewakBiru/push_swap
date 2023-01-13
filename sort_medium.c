@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:41:27 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/13 12:59:17 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 17:33:44 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ void	calc_cost(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
-	int		j;
 
 	tmp = *stack_b;
 	tmp2 = *stack_a;
-	j = 0;
 	assign_indices(stack_b);
 	while (tmp)
 	{
@@ -79,7 +77,6 @@ void	calc_cost(t_list **stack_a, t_list **stack_b)
 		if (tmp->cost_a > ft_lstsize(*stack_a) / 2)
 			tmp->cost_a = -(ft_lstsize(*stack_a) - tmp->cost_a);
 		tmp = tmp->next;
-		j++;
 	}
 }
 
@@ -110,7 +107,7 @@ void	sort_medium(t_list **stack_a, t_list **stack_b)
 		i = 0;
 		assign_indices(stack_b);
 		calc_cost(stack_a, stack_b);
-		arrange_b(i, stack_a, stack_b);
+		i = arrange_a(stack_a, stack_b);
 		push(stack_b, stack_a, 1);
 		put_back(i, stack_a);
 	}

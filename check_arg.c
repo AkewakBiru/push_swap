@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:58:34 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/12 21:10:44 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 19:24:25 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ int	check_dup(t_list **head)
 	return (0);
 }
 
+void	free_exit(t_list **head, char **tmp)
+{
+	ft_lstclear(head);
+	free_arr(tmp);
+	free(tmp);
+	error_msg("Error\n");
+}
+
 void	check_nums(t_list **head, char **av, int ac)
 {
 	int		i;
@@ -82,28 +90,21 @@ void	check_nums(t_list **head, char **av, int ac)
 	char	**tmp;
 	t_list	*new;
 
-	i = 1;
-	while (i < ac)
+	i = 0;
+	while (++i < ac)
 	{
-		j = 0;
+		j = -1;
 		tmp = ft_split(av[i], ' ');
-		while (tmp[j])
+		while (tmp[++j])
 		{
 			if (ft_atol(tmp[j]) == 9223372036854775807)
-			{
-				ft_lstclear(head);
-				free_arr(tmp);
-				free(tmp);
-				error_msg("ERROR\n");
-			}
+				free_exit(head, tmp);
 			new = ft_lstnew((int)ft_atol(tmp[j]));
 			ft_lstadd_back(head, new);
-			j++;
 		}
 		free_arr(tmp);
 		free(tmp);
-		i++;
 	}
 	if (check_dup(head) == 1)
-		error_msg("ERROR\n");
+		error_msg("Error\n");
 }

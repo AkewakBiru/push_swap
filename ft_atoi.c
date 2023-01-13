@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 01:08:57 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/06 17:39:26 by abiru            ###   ########.fr       */
+/*   Updated: 2023/01/13 14:53:14 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,8 @@ long	ft_atol(const char *str)
 	sign = (int)ft_sign(str, i);
 	if (str[i] == '+' || str[i] == '-')
 		i++;
-	if (cus_strlen(str) > 19 && sign == 1)
-		return (9223372036854775807);
-	if (cus_strlen(str) > 19 && sign == -1)
-		return (9223372036854775807);
-	if (!str[i])
+	if (!str[i] || (cus_strlen(str) > 19 && sign == 1)
+		|| (cus_strlen(str) > 19 && sign == -1))
 		return (9223372036854775807);
 	while (str[i] != '\0')
 	{
@@ -77,9 +74,8 @@ long	ft_atol(const char *str)
 			result = (result * 10) + str[i] - '0';
 		else
 			return (9223372036854775807);
-		if (result >= 2147483648 && sign == 1)
-			return (9223372036854775807);
-		else if (result > 2147483648 && sign == -1)
+		if ((result >= 2147483648 && sign == 1)
+			|| (result > 2147483648 && sign == -1))
 			return (9223372036854775807);
 		i++;
 	}
