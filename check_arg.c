@@ -6,7 +6,7 @@
 /*   By: abiru <abiru@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:58:34 by abiru             #+#    #+#             */
-/*   Updated: 2023/01/13 19:24:25 by abiru            ###   ########.fr       */
+/*   Updated: 2023/02/04 15:51:05 by abiru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,5 @@ void	check_nums(t_list **head, char **av, int ac)
 	if (check_dup(head) == 1)
 		error_msg("Error\n");
 }
+// st = NULL
+// st -> 123 -> 124 -> 125
